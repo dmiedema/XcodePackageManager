@@ -70,6 +70,18 @@ List all disabled plugins
 # or disabled.
 # """)
 
+parser.add_argument("--clean", action="store_true", help="""
+Cleanup/remove any intermediate results from builds.
+
+Downside of this, next update/install the results may have
+to be done again resulting in it taking a longer amount of time
+""")
+
+parser.add_argument("--install", action="store_true", help="""
+Install any missing plugins. Can be used in place of `--add`
+if installing/adding a new plugin is desired
+""")
+
 parser.add_argument("--update", action="store_true", help="""
 Update the given repos
 """)
