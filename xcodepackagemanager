@@ -52,9 +52,12 @@ Because I've grown to hate Alcatraz...
 parser.add_argument("--init", action="store_true", help="""
 Initialize XcodePackageManager folder & file setup.
 Configuration information is stored in
+`$HOME/.xcodepackagemanager.conf`
+Build results are stored in
 `$HOME/.xcodepackagemanager/`
 
-If the directory already exists this is essentially a `no-op`
+If the directory & config file already exist
+this is essentially a `no-op`
 """)
 
 parser.add_argument("--enabled", action="store_true", help="""
@@ -79,7 +82,9 @@ to be done again resulting in it taking a longer amount of time
 
 parser.add_argument("--install", action="store_true", help="""
 Install any missing plugins. Can be used in place of `--add`
-if installing/adding a new plugin is desired
+if installing/adding a new plugin is desired.
+With no input will install all missing plugins listed in
+$HOME/.xcodepackagemanager.conf
 """)
 
 parser.add_argument("--update", action="store_true", help="""
@@ -110,7 +115,8 @@ Default is `plugin`
 """)
 
 parser.add_argument("--branch", dest='branch', default='master', type=str, help="""
-Git branch of the repo to checkout and build from
+Git branch of the repo to checkout and build from.
+Default branch is `master`
 """)
 
 parser.add_argument("--tag", dest='tag', type=str, help="""
@@ -118,7 +124,7 @@ Git tag to checkout and build from
 """)
 
 parser.add_argument("input", nargs='?', metavar='INPUT', type=str, help="""
-If adding
+If adding/installing
     Full URL of the git repo to clone for the item
 If enabling/disabling
     Name/String to match. Will match anywhere in the string
@@ -126,7 +132,18 @@ If enabling/disabling
 """)
 
 # Setup Default Values
-parser.set_defaults(all=False, add=False, init=False, update=False, disabled=False, enabled=False, fix=False, type='plugin', branch='master', tag=None, input=None)
+parser.set_defaults(add=False,
+                    all=False,
+                    branch='master',
+                    disabled=False,
+                    enabled=False,
+                    fix=False,
+                    init=False,
+                    input=None,
+                    type='plugin',
+                    tag=None,
+                    update=False,
+                    )
 
 args = parser.parse_args()
 
@@ -142,6 +159,34 @@ def main():
 ####
 def check_file():
     return False
+
+def read_file(path):
+    return False
+
+####
+# Repo Stuff
+####
+def clone_repo(repo_url, location):
+    return False
+
+def build_project(project_path, output_path):
+    return (False, output_directory)
+
+####
+# Installation/Linking
+####
+def link_project(output_directory):
+    return False
+
+####
+# Xcode UUIDs
+####
+def read_xcode_uuids():
+    return []
+
+def append_xcode_uuids(uuids, projects_directory):
+    return False
+
 
 ####
 # Helpers
